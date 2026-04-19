@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>S-RES Semarang</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class'
+    }
+  </script>
+
+  <!-- CSS DIPISAH -->
+  <link rel="stylesheet" href="style.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="bg-white text-gray-900 dark:bg-[#020617] dark:text-white transition-all duration-500">
+
+<!-- NAVBAR -->
+<nav id="navbar"
+class="fixed w-full z-50 flex justify-between items-center px-6 py-4
+bg-white/70 dark:bg-black/40 backdrop-blur-lg border-b border-gray-200 dark:border-white/10">
+
+  <!-- LOGO -->
+  <a href="#home" class="logo-link">
+  <img src="image/logo-sres.png" class="logo-nav">
+  </a>
+
+  <!-- MENU DESKTOP -->
+  <div class="hidden md:flex gap-6 text-sm">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#qgis">Maps</a>
+    <a href="#onehealth">One Health</a>
+  </div>
+
+  <!-- RIGHT SIDE -->
+  <div class="flex items-center gap-3">
+
+    <!-- THEME -->
+    <button onclick="toggleTheme()" id="themeBtn"
+      class="px-3 py-1 rounded-full border border-gray-300 dark:border-white/20 text-sm">
+      🌙
+    </button>
+
+    <!-- HAMBURGER -->
+    <button onclick="toggleMenu()" class="md:hidden text-2xl">
+      ☰
+    </button>
+
+  </div>
+</nav>
+
+<!-- ALERT POPUP -->
+<div id="alertBox"
+  class="hidden fixed top-20 left-1/2 -translate-x-1/2 
+  bg-red-500 text-white px-6 py-3 rounded-xl shadow-lg z-50 animate-[fadeIn_0.3s_ease]">
+  ⚠️ BAHAYA! Segera evakuasi ke tempat aman!
+</div>
+
+<!-- MOBILE MENU -->
+<div id="mobileMenu" 
+class="mobile-menu fixed top-[70px] left-0 w-full z-40">
+
+  <div class="menu-content">
+
+    <a href="#home" onclick="toggleMenu()">Home</a>
+    <a href="#about" onclick="toggleMenu()">About</a>
+    <a href="#qgis" onclick="toggleMenu()">Q-GIS</a>
+    <a href="#onehealth" onclick="toggleMenu()">One Health</a>
+
+  </div>
+</div>
+
+<!-- HOME -->
+<section id="home" class="h-screen relative flex items-center justify-center text-center overflow-hidden">
+
+  <div id="parallax-bg" class="absolute inset-0 bg-cover bg-center scale-105"
+       style="background-image:url('https://images.unsplash.com/photo-1648992826681-a55b4ca8ff2f?w=1920');">
+  </div>
+
+  <div class="absolute inset-0 transition-all duration-500
+    bg-gradient-to-br 
+    from-white/75 via-cyan-50/60 to-indigo-100/70
+    dark:from-[#020617]/90 dark:via-[#0a0f1f]/85 dark:to-[#020617]/95">
+  </div>
+
+  <div class="relative z-10 px-6">
+    <h1 class="text-6xl md:text-7xl font-bold">S-RES</h1>
+    <p class="mt-4 text-gray-700 dark:text-gray-300">
+      Smart-Resillience System Semarang
+    </p>
+
+    <div class="mt-8 flex justify-center gap-4">
+      <button onclick="scrollToSection('about')" 
+        class="bg-cyan-500 text-white px-8 py-3 rounded-full hover:scale-105 transition">
+        Explore
+      </button>
+    </div>
+  </div>
+
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="h-screen flex items-center px-10">
+  <div class="grid md:grid-cols-2 gap-10 max-w-6xl mx-auto">
+    <div class="border border-gray-200 dark:border-white/10 p-2 rounded-xl overflow-hidden">
+    <img src="https://images.unsplash.com/photo-1648992826681-a55b4ca8ff2f?w=1920"
+       class="w-full h-full object-cover rounded-xl">
+    </div>
+
+<div class="box-ui p-6 rounded-xl">
+  <h1 class="text-3xl text-cyan-500 mb-4">About</h1>
+  <div class="space-y-3 text-gray-500 dark:text-gray-400 leading-relaxed">
+    <p class="ml-3"> S-RES adalah sistem mitigasi banjir berbasis IoT dan AI dengan pendekatan One Health 
+      yang menyediakan informasi real-time dan prediktif.</p>
+    <p class="ml-3">Sistem ini memantau kondisi lingkungan, menganalisis risiko kesehatan, serta 
+      memberikan rekomendasi evakuasi dan peringatan dini, dan rujukan fasilitas kesehatan.</p>
+    <p class="ml-3">S-RES bertujuan mewujudkan Kota Semarang yang tangguh bencana, adaptif, 
+      dan berbasis data.</p>
+  </div>
+</div>
+</section>
+
+<!-- QGIS -->
+<section id="qgis" class="min-h-screen flex flex-col items-center gap-10 py-16">
+
+  <h1 class="text-5xl text-cyan-500">Maps</h1>
+
+  <div class="border border-gray-200 dark:border-white/10 p-3 rounded-xl w-full max-w-5xl">
+    <iframe src="https://www.google.com/maps?q=Semarang&output=embed"
+      class="w-full h-[400px] rounded-xl"></iframe>
+  </div>
+
+  <div class="w-full max-w-5xl relative flex justify-center">
+
+    <div id="indicatorArrow"
+         class="absolute top-full mt-1 text-cyan-500 text-lg transition-all duration-500"
+         style="left:16.66%; transform:translateX(-50%);">
+      ▲
+    </div>
+
+    <div class="flex w-full rounded-xl overflow-hidden font-semibold text-sm">
+      <div class="flex-1 text-center py-4 bg-green-100 dark:bg-green-500/20 text-green-600 dark:text-green-300">AMAN</div>
+      <div class="flex-1 text-center py-4 bg-yellow-100 dark:bg-yellow-500/20 text-yellow-600 dark:text-yellow-300">SIAGA</div>
+      <div class="flex-1 text-center py-4 bg-red-100 dark:bg-red-500/20 text-red-600 dark:text-red-300">AWAS</div>
+    </div>
+  </div>
+
+  <div class="text-center text-gray-600 dark:text-gray-300">
+    <p>Curah Hujan: <span id="rain">0</span> mm</p>
+    <p>Ketinggian Air: <span id="water">0</span> cm</p>
+    <p id="statusText" class="mt-2 font-semibold text-cyan-500">Status: AMAN</p>
+  </div>
+
+</section>
+
+<!-- ONE HEALTH -->
+<section id="onehealth" class="min-h-screen px-6 py-16 flex flex-col items-center">
+
+  <h1 class="text-4xl text-cyan-500 mb-10">One Health</h1>
+
+  <div class="grid md:grid-cols-3 gap-6 max-w-6xl w-full">
+
+    <!-- DIARE -->
+    <div class="box-ui rounded-xl overflow-hidden hover:scale-105 transition">
+      <img src="image/diare.png" class="h-40 w-full object-cover">
+      <div class="p-4 space-y-2 text-sm">
+
+        <h2 class="text-cyan-500 font-bold text-lg">Diare</h2>
+
+        <p><span class="font-semibold">Pengertian:</span> Gangguan pencernaan dengan frekuensi BAB meningkat dan cair.</p>
+
+        <p><span class="font-semibold">Gejala:</span> BAB cair, lemas, dehidrasi, mual.</p>
+
+        <p><span class="font-semibold">Dampak:</span> Kekurangan cairan, bisa fatal pada anak.</p>
+
+        <p><span class="font-semibold">Penanganan:</span> Oralit, minum air cukup, jaga kebersihan makanan.</p>
+
+        <p><span class="font-semibold">Rujukan:</span> Puskesmas / RS terdekat</p>
+
+      </div>
+    </div>
+
+    <!-- LEPTOSPIROSIS -->
+    <div class="box-ui rounded-xl overflow-hidden hover:scale-105 transition">
+      <img src="image/lepto.png" class="h-40 w-full object-cover">
+      <div class="p-4 space-y-2 text-sm">
+
+        <h2 class="text-cyan-500 font-bold text-lg">Leptospirosis</h2>
+
+        <p><span class="font-semibold">Pengertian:</span> Infeksi bakteri dari air/lingkungan tercemar urin hewan.</p>
+
+        <p><span class="font-semibold">Gejala:</span> Demam tinggi, nyeri otot, mata merah.</p>
+
+        <p><span class="font-semibold">Dampak:</span> Kerusakan ginjal & hati jika parah.</p>
+
+        <p><span class="font-semibold">Penanganan:</span> Antibiotik & perawatan medis segera.</p>
+
+        <p><span class="font-semibold">Rujukan:</span> Rumah Sakit / Dinas Kesehatan</p>
+
+      </div>
+    </div>
+
+    <!-- DBD -->
+    <div class="box-ui rounded-xl overflow-hidden hover:scale-105 transition">
+      <img src="image/dbd.png" class="h-40 w-full object-cover">
+      <div class="p-4 space-y-2 text-sm">
+
+        <h2 class="text-cyan-500 font-bold text-lg">DBD</h2>
+
+        <p><span class="font-semibold">Pengertian:</span> Penyakit akibat virus dengue dari gigitan nyamuk Aedes aegypti.</p>
+
+        <p><span class="font-semibold">Gejala:</span> Demam tinggi, nyeri sendi, bintik merah.</p>
+
+        <p><span class="font-semibold">Dampak:</span> Pendarahan & penurunan trombosit.</p>
+
+        <p><span class="font-semibold">Penanganan:</span> Istirahat, cairan cukup, perawatan RS jika parah.</p>
+
+        <p><span class="font-semibold">Rujukan:</span> RS / Klinik terdekat</p>
+
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- FLOATING HOTLINE -->
+<div class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+
+  <div id="hotlineBox" 
+    class="hotline-box hidden flex-col gap-3 rounded-2xl p-4 w-64">
+
+    <div class="flex justify-between items-center mb-2">
+      <span class="text-sm font-semibold text-red-500">HOTLINE</span>
+      <button onclick="toggleHotline()" class="close-btn">✕</button>
+    </div>
+
+    <a href="tel:112" class="hotline-item">
+      <span>🚑 Ambulans</span><span class="font-bold">112</span>
+    </a>
+
+    <a href="tel:113" class="hotline-item danger">
+      <span>🚒 Pemadam</span><span class="font-bold">113</span>
+    </a>
+
+    <a href="https://wa.me/628123456789" target="_blank"
+      class="hotline-item primary">
+      💬 Customer Service
+    </a>
+  </div>
+
+  <button onclick="toggleHotline()" 
+    id="hotlineBtn"
+    class="hotline-btn">
+    ☎
+  </button>
+
+</div>
+<!-- FOOTER -->
+<footer class="footer-sres mt-20">
+
+  <div class="max-w-6xl mx-auto px-6 py-12 grid md:grid-cols-3 gap-10">
+
+    <!-- LEFT -->
+    <div class="flex flex-col items-center md:items-start text-center md:text-left gap-3">
+      <img src="image/logo-sres.png" class="logo-footer">
+
+      <p class="footer-text">
+        Smart-Resillience System untuk monitoring banjir dan kesehatan di Semarang.
+      </p>
+    </div>
+
+    <!-- CP -->
+    <div>
+      <h2 class="footer-title">Narahubung (CP)</h2>
+      <div class="space-y-3 mt-4">
+        <div class="footer-item">📞 0812-3456-789 (Person 1)</div>
+        <div class="footer-item">📞 0812-3456-789 (Person 2)</div>
+      </div>
+    </div>
+
+    <!-- SOSMED -->
+    <div>
+      <h2 class="footer-title">Media Sosial</h2>
+      <div class="space-y-3 mt-4">
+        <div class="footer-item">📧 s-res@gmail.com</div>
+        <div class="footer-item">📷 @sres.official</div>
+        <div class="footer-item">🌐 sres.id</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2026 S-RES. All rights reserved.</span>
+    <span class="hidden md:block">Designed for Smart-Resillience System</span>
+  </div>
+
+</footer>
+
+<!-- JS DIPISAH -->
+<script src="script.js"></script>
+
+</body>
+</html>
