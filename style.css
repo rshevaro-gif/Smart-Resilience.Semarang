@@ -323,3 +323,41 @@ body {
 .logo-nav:active {
   transform: scale(0.95);
 }
+
+/* NAV LINK BASE */
+.nav-link {
+  position: relative;
+  padding: 5px 0;
+  transition: 0.3s;
+}
+
+/* UNDERLINE ANIMATION */
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 0%;
+  height: 2px;
+  background: #22d3ee;
+  transition: width 0.3s ease;
+}
+
+/* HOVER EFFECT */
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* HOVER COLOR */
+.nav-link:hover {
+  color: #22d3ee;
+}
+
+/* ACTIVE LINK */
+.nav-link.active {
+  color: #22d3ee;
+}
+
+.nav-link.active::after {
+  width: 100%;
+}
