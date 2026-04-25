@@ -31,15 +31,32 @@ function updateSensor(){
   water=Math.max(0,Math.min(150,water));
   document.getElementById('rain').innerText=Math.round(rain);
   document.getElementById('water').innerText=Math.round(water);
+  document.getElementById('waterBar').style.width = water + "%";
 }
 function evaluate(){
   if(rain>120||water>100) current="awas";
   else if(rain>60||water>60) current="siaga";
   else current="aman";
-  document.getElementById('statusText').innerText="Status: "+current.toUpperCase();
-}
-setInterval(()=>{ updateSensor(); evaluate(); },3000);
 
+  const status = document.getElementById('statusText');
+  status.innerText="Status: "+current.toUpperCase();
+
+  status.className = "mt-2 font-semibold " +
+    (current==="aman" ? "text-green-500" :
+     current==="siaga" ? "text-yellow-500" :
+     "text-red-500");
+
+  if(current==="awas"){
+    const alertBox = document.getElementById("alertBox");
+    alertBox.classList.remove("hidden");
+    alertBox.classList.add("alert-blink");
+
+    setTimeout(()=>{
+      alertBox.classList.add("hidden");
+      alertBox.classList.remove("alert-blink");
+    },4000);
+  }
+}
 // HOTLINE
 function toggleHotline(){
   const box = document.getElementById('hotlineBox');
@@ -55,12 +72,13 @@ function toggleHotline(){
 
 // klik luar = close
 document.addEventListener('click', function(e){
-  const box = document.getElementById('hotlineBox');
-  const btn = document.getElementById('hotlineBtn');
+  const menu = document.getElementById('mobileMenu');
+  const btn = document.querySelector('.md\\:hidden');
 
-  if(!box.contains(e.target) && !btn.contains(e.target)){
-    box.classList.remove('show');
-    setTimeout(()=> box.classList.add('hidden'),200);
+  if(!menu.contains(e.target) && !btn.contains(e.target)){
+    menu.classList.remove('show');
+    menuOpen = false;
+    btn.innerText = "☰";
   }
 });
 
@@ -73,91 +91,30 @@ document.addEventListener('keydown', function(e){
   }
 });
 
-// MOBILE MENU
-function toggleMenu(){
-  const menu = document.getElementById('mobileMenu');
-  menu.classList.toggle('hidden');
-}
+let menuOpen = false;
 
-window.addEventListener('scroll', () => {
-  const logo = document.querySelector('.logo-nav');
-
-  if (window.scrollY > 50) {
-    logo.style.height = "40px";
-  } else {
-    logo.style.height = "55px";
-  }
-});
-
-let lastScroll = 0;
-const navbar = document.getElementById("navbar");
-
-window.addEventListener("scroll", () => {
-  const currentScroll = window.pageYOffset;
-
-  // efek background + shrink
-  if (currentScroll > 50) {
-    navbar.classList.add("nav-scrolled");
-  } else {
-    navbar.classList.remove("nav-scrolled");
-  }
-
-  // auto hide / show
-  if (currentScroll > lastScroll && currentScroll > 100) {
-    navbar.classList.add("nav-hidden");
-  } else {
-    navbar.classList.remove("nav-hidden");
-  }
-
-  lastScroll = currentScroll;
-});
-
-function toggleMenu(){
-  const menu = document.getElementById('mobileMenu');
-  menu.classList.toggle('show');
-}
-
-// klik luar = close
-document.addEventListener('click', function(e){
+function toggleMenu(btn){
   const menu = document.getElementById('mobileMenu');
 
-  if(!menu.contains(e.target) && !e.target.closest('button')){
+  menuOpen = !menuOpen;
+
+  if(menuOpen){
+    menu.classList.add('show');
+    btn.innerText = "✕";
+  } else {
     menu.classList.remove('show');
+    btn.innerText = "☰";
   }
-});
-
-function toggleMenu(){
-  const menu = document.getElementById('mobileMenu');
-  const btn = event.currentTarget;
-
-  menu.classList.toggle('show');
-  btn.innerText = menu.classList.contains('show') ? "✕" : "☰";
 }
-document.querySelector('.logo-link').addEventListener('click', function(e){
-  e.preventDefault();
-  document.getElementById('home').scrollIntoView({
-    behavior: 'smooth'
-  });
-});
-const sections = document.querySelectorAll("section");
-const navLinks = document.querySelectorAll(".nav-link");
 
-// highlight menu sesuai scroll
-window.addEventListener("scroll", () => {
-  let current = "";
+document.querySelectorAll('#mobileMenu a').forEach(link => {
+  link.addEventListener('click', () => {
+    const menu = document.getElementById('mobileMenu');
+    const btn = document.querySelector('.md\\:hidden');
 
-  sections.forEach(section => {
-    const sectionTop = section.offsetTop - 100;
-    if (scrollY >= sectionTop) {
-      current = section.getAttribute("id");
-    }
-  });
-
-  navLinks.forEach(link => {
-    link.classList.remove("active");
-    if (link.getAttribute("href") === "#" + current) {
-      link.classList.add("active");
-    }
+    menu.classList.remove('show');
+    menuOpen = false;
+    btn.innerText = "☰";
   });
 });
 
@@ -168,4 +125,15 @@ navLinks.forEach(link => {
     const target = document.querySelector(this.getAttribute("href"));
     target.scrollIntoView({ behavior: "smooth" });
   });
+});
+
+window.addEventListener('scroll', () => {
+  const menu = document.getElementById('mobileMenu');
+  const btn = document.querySelector('.md\\:hidden');
+
+  if(menuOpen){
+    menu.classList.remove('show');
+    menuOpen = false;
+    btn.innerText = "☰";
+  }
 });
